@@ -5,9 +5,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import {Link} from "react-router-dom"
 import axios from "axios"
 import BASE_URL from '../config';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const TopNav = () => {
   const [show, setShow] = useState(false);
 const [input , setInput] = useState({})
@@ -29,20 +31,22 @@ const [input , setInput] = useState({})
     try {
       let res = await axios.post(api , input)
       console.log(res)
-      alert("Register Successfully")
+      toast.success("Register Successfully !");
+      setShow(false)
     } catch (error) {
       console.log(error)
     }
   }
   return (
     <>
-     <Navbar bg='primary' data-bs-theme="dark">
+     <Navbar bg='dark' data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="#home">AD Appointment System</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
+            <Nav.Link as={Link} to="home">Home</Nav.Link>
+            <Nav.Link as={Link} to="searchdoctor">Search Doctor</Nav.Link>
             <Nav.Link href="#pricing" onClick={handleShow}>Register a new doctor</Nav.Link>
+            <Nav.Link as={Link} to="login">Doctor-Login</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -95,6 +99,7 @@ const [input , setInput] = useState({})
           </Button>
         </Modal.Footer>
       </Modal>
+      <ToastContainer />
     </>
   )
 }

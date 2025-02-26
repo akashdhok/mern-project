@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Button, Card, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import BASE_URL from '../config';
-
+import Carousel from 'react-bootstrap/Carousel';
+import { useNavigate } from 'react-router-dom';
 const Home = () => {
   const [apiData, setApiData] = useState([]);
-  const [loading, setLoading] = useState(true);
+ const navigate = useNavigate()
 
   const loadData = async () => {
     let api = `${BASE_URL}/doctor/displayhome`;
@@ -14,8 +15,6 @@ const Home = () => {
       setApiData(res.data);
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -23,18 +22,27 @@ const Home = () => {
     loadData();
   }, []);
 
+
+  const appointment = (id)=>{
+    navigate(`/booknow/${id}`)
+  }
   return (
+    <>
+    <Carousel fade>
+    <Carousel.Item>
+      <img src="./one.jpeg" alt="" width="100%" height="300px" />
+    </Carousel.Item>
+    <Carousel.Item>
+    <img src="./four.webp" alt="" width="100%" height="300px" />
+    </Carousel.Item>
+    <Carousel.Item>
+    <img src="./three.jpg" alt="" width="100%" height="300px" />
+    </Carousel.Item>
+  </Carousel>
+
+
     <Container className="mt-4">
       <h1 className="text-center mb-4">Our Doctors</h1>
-
-      {loading ? (
-        <div className="text-center">
-          <Spinner animation="border" variant="primary" />
-          <p>Loading doctors...</p>
-        </div>
-      ) : apiData.length === 0 ? (
-        <p className="text-center text-danger">No doctors available.</p>
-      ) : (
         <Row className="justify-content-center">
           {apiData.map((e, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
@@ -49,14 +57,14 @@ const Home = () => {
                       <li><strong>Phone:</strong> {e.number}</li>
                     </ul>
                   </Card.Text>
-                  <Button variant="primary" className="w-100">Take Appointment</Button>
+                  <Button variant="primary" className="w-100" onClick={()=>{appointment(e._id)}}>Take Appointment</Button>
                 </Card.Body>
               </Card>
             </Col>
           ))}
         </Row>
-      )}
     </Container>
+    </>
   );
 };
 
