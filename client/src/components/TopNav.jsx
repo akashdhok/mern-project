@@ -39,17 +39,22 @@ const [input , setInput] = useState({})
   }
   return (
     <>
-     <Navbar bg='dark' data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand href="#home">AD Appointment System</Navbar.Brand>
+     <Navbar bg="dark" data-bs-theme="dark" expand="lg">
+      <Container>
+        <Navbar.Brand href="#home">AD Appointment System</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="home">Home</Nav.Link>
-            <Nav.Link as={Link} to="searchdoctor">Search Doctor</Nav.Link>
-            <Nav.Link href="#pricing" onClick={handleShow}>Register a new doctor</Nav.Link>
-            <Nav.Link as={Link} to="login">Doctor-Login</Nav.Link>
+            <Nav.Link as={Link} to="/home">Home</Nav.Link>
+            <Nav.Link as={Link} to="/searchdoctor">Search Doctor</Nav.Link>
+            <Nav.Link href="#pricing" onClick={handleShow}>
+              Register a new doctor
+            </Nav.Link>
+            <Nav.Link as={Link} to="/login">Doctor-Login</Nav.Link>
           </Nav>
-        </Container>
-      </Navbar>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Doctor Registration</Modal.Title>
